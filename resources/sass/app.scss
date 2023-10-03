@@ -1,8 +1,19 @@
 // Fonts
-@import url('https://fonts.bunny.net/css?family=Nunito');
+@import url('https://fonts.bunny.net/css?family=advent-pro:100');
+@import url('https://fonts.bunny.net/css?family=bowlby-one-sc:400');
 
 // Variables
 @import 'variables';
 
 // Bootstrap
 @import 'bootstrap/scss/bootstrap';
+
+/* Font for the logo */
+.navbar-brand {
+    font-family: 'bowlby-one-sc', sans-serif;
+}
+
+/* Font for the rest of the webpage */
+body {
+    font-family: 'advent-pro', sans-serif;
+}

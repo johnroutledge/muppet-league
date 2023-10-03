@@ -13,12 +13,10 @@ return new class extends Migration
     {
         Schema::create('players', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('team_id');
-            $table->string('first_name');
-            $table->string('surname');
+            $table->unsignedBigInteger('premier_league_team_id');
+            $table->string('name');
             $table->string('position');
             $table->integer('price_pence');    
-            $table->unsignedBigInteger('premier_league_team_id');        
             $table->timestamps();
         });
     }
