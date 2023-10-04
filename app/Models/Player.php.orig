@@ -10,11 +10,13 @@ class Player extends Model
 {
     use HasFactory;
 
-    public $guarded = [];	
-
+<<<<<<< HEAD
+    public $guarded = [];
+=======
     protected $appends = [
         'position_short_name'
     ];
+>>>>>>> dc311240aee693fd00c60e1d3ed7cc9947d57c47
 
     public function teams()
     {
@@ -28,6 +30,8 @@ class Player extends Model
         return $this->belongsTo(PremierLeagueTeam::class);
     }
 
+<<<<<<< HEAD
+=======
     public function getPositionShortNameAttribute()
     {
         switch ($this->position) {
@@ -44,4 +48,5 @@ class Player extends Model
         }
     }
     
+>>>>>>> dc311240aee693fd00c60e1d3ed7cc9947d57c47
 }
