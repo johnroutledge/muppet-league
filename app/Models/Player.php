@@ -10,6 +10,8 @@ class Player extends Model
 {
     use HasFactory;
 
+    public $guarded = [];	
+
     protected $appends = [
         'position_short_name'
     ];
