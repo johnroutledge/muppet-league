@@ -14,7 +14,8 @@ return new class extends Migration
         Schema::create('players', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('premier_league_team_id');
-            $table->string('name');
+            $table->string('first_name')->nullable();
+            $table->string('surname')->nullable();
             $table->string('position');
             $table->integer('price_pence');    
             $table->timestamps();

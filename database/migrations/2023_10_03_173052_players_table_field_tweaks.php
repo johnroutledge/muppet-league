@@ -13,7 +13,6 @@ return new class extends Migration
     {
         Schema::table('players', function (Blueprint $table) {
             $table->unsignedTinyInteger('position')->change();
-            $table->unsignedBigInteger('team_id')->nullable()->change();
         });
     }
 
@@ -24,7 +23,6 @@ return new class extends Migration
     {
         Schema::table('players', function (Blueprint $table) {
             $table->string('position')->change();
-            $table->unsignedBigInteger('team_id')->change();
         });
     }
 };
