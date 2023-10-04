@@ -9,6 +9,8 @@ class Player extends Model
 {
     use HasFactory;
 
+    public $guarded = [];
+
     public function teams()
     {
         return $this->belongsToMany(Team::class, 'player_team')
@@ -20,5 +22,5 @@ class Player extends Model
     {
         return $this->belongsTo(PremierLeagueTeam::class);
     }
-    
+
 }
