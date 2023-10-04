@@ -5,6 +5,7 @@ namespace App\Http\Controllers\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Player;
+use App\Models\PremierLeagueTeam;
 
 class TeamController extends Controller
 {
@@ -21,10 +22,10 @@ class TeamController extends Controller
      */
     public function create()
     {
-        $players = Player::all()
-            ->sortBy('position');
+        $players = Player::orderBy('position')->get();
+        $premierLeagueTeams = PremierLeagueTeam::orderBy('name')->get();
 
-        return view('user.team.create', compact('players'));
+        return view('user.team.create', compact('players', 'premierLeagueTeams'));
     }
 
     /**
