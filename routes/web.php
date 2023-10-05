@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\User\TeamController;
+use App\Http\Controllers\HomeController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -20,5 +22,6 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::resource('/user/team', App\Http\Controllers\User\TeamController::class)->middleware('auth');
+Route::get('/home', [HomeController::class, 'index'])->name('home');
+Route::resource('/user/team', TeamController::class)->middleware('auth');
+

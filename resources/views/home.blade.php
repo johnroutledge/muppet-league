@@ -15,10 +15,15 @@
                     @endif
 
                     @if (isset($team))
-                        <div class="alert alert-success" role="alert">
-                            {{ $team->name }} is your team.
-                        </div>
-                        <a href="{{ route('team.show', $team->id) }}" class="btn btn-primary">View Team</a>
+                        <h5>
+                            Team name: {{ $team->name }}
+                        </h5>
+                        @foreach ($team->players as $player)
+                            <div>
+                                {{ $player->first_name }} {{ $player->surname }} {{ $player->team_short_name }} ({{  $player->position_short_name }})
+                            </div>
+                        @endforeach
+                        <a href="#" class="btn btn-primary">Edit Team</a>
                     @else
                         <div class="alert alert-warning" role="alert">
                             You do not have a team yet.

@@ -13,7 +13,8 @@ class Player extends Model
     public $guarded = [];	
 
     protected $appends = [
-        'position_short_name'
+        'position_short_name',
+        'team_short_name',
     ];
 
     public function teams()
@@ -42,6 +43,11 @@ class Player extends Model
             default:
                 return '';
         }
+    }
+
+    public function getTeamShortNameAttribute()
+    {
+        return $this->premierLeagueTeam->short_name;
     }
     
 }
