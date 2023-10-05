@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Http;
 
 //https://www.game-change.co.uk/2023/02/10/a-complete-guide-to-the-fantasy-premier-league-fpl-api/
 //quick and (very) dirty api wrapper
+
 class FplApi
 {
     private const BASE_URL = 'https://fantasy.premierleague.com/api/';
@@ -74,7 +75,7 @@ class FplApi
      */
     public function getGameweek(int $gameweekId)
     {
-        return $this->jsonRequest('GET', sprintf('event/%d/live/', $gameweekId));
+        return collect($this->jsonRequest('GET', sprintf('event/%d/live/', $gameweekId))->json()['elements']);
     }
 
     public function getTeams()
