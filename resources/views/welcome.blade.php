@@ -8,7 +8,7 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-6">
-                            <img src="{{ asset('img/muppet-league-hero.png') }}" alt="">
+                            <img src="{{ asset('img/muppet-league-stadium.png') }}" alt="">
                         </div>
                         <div class="col-md-6">
                             <h3 class="mb-4">Muppet League</h3>

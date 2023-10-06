@@ -32,15 +32,19 @@ class TeamController extends Controller
 
     public function store(Request $request)
     {
-        // Validate the request data (e.g., team name and selected players)
+        // HACKY WAY OF SAVING/UPDATING TEAM - SEPERATE INTO TWO METHODS WHEN TIME PERMITS
+        $team = Team::where('user_id', auth()->id())->first();
+        if ($team) {
+            $team->name = $request->input('teamName');
+            $team->save();
+        } else {
+            $team = new Team();
+            $team->name = $request->input('teamName');
+            $team->user_id = auth()->id();
+            $team->save();
+        }
 
-        $team = new Team();
-        $team->name = $request->input('teamName');
-        $team->user_id = auth()->id();
-
-        // Save the team record
-        $team->save();
-        Log::info('Team saved successfully');
+        $playerTeam = PlayerTeam::where('team_id', $team->id)->delete();
 
         // Attach selected players to the team in the player_team pivot table
         $selectedPlayers = $request->input('selectedPlayers');
@@ -54,10 +58,6 @@ class TeamController extends Controller
             $playerTeam->player_id = $playerId;
             $playerTeam->team_id = $team->id;
             $playerTeam->save();
-            // $team->players()->attach($playerId, [
-            //     'player_id' => $playerId,
-            //     'team_id' => $team->id,
-            // ]);
         }
         Log::info('Players attached to team successfully');
 

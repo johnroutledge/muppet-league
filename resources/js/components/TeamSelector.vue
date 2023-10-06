@@ -7,6 +7,7 @@
                 <div class="selected-team">
                     <h5>Selected Team</h5>
                     <ul>
+                        <li>Click on a player to add/remove from your team</li>
                         <li>Minimum spend: £50m</li>
                         <li>No more than 2 players from the same team</li>
                         <li>Formation is 4-4-2</li>

@@ -55,7 +55,7 @@
                                     @endforeach
                                     </tbody>
                                     <tfoot>
-                                        <tr>
+                                        <tr class="fw-bold">
                                             <td>Totals</td>
                                             <td>{{ $gameweekData->sum('minutes') }}</td>
                                             <td>{{ $gameweekData->sum('goals_scored') }}</td>
