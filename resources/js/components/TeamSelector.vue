@@ -2,10 +2,33 @@
     <div class="team-selection">
         <div class="row">
             <div v-if="successMessage" class="col-md-12 alert alert-success">{{ successMessage }}</div>
+            <div class="col-md-6 fixed-column">
+                <!-- Selected Team -->
+                <div class="selected-team">
+                    <h5>Selected Team</h5>
+                    <ul>
+                        <li>Minimum spend: £50m</li>
+                        <li>No more than 2 players from the same team</li>
+                        <li>Formation is 4-4-2</li>
+                    </ul>
+                    <div class="team-name my-2">
+                        <label for="teamName" class="me-2">Team Name:</label>
+                        <input v-model="teamName" type="text" id="teamName" placeholder="Enter your team name">
+                    </div>
+                    <div>
+                        <p>Team Value: £{{ teamValue / 10000000 }}m (target: 50m)</p>
+                    </div>
+                    <ul>
+                        <li v-for="player in selectedTeam" @click="removeFromTeam(player)"> {{ player.first_name }} {{
+                            player.surname }} {{ player.team_short_name }} ({{ player.position_short_name }})</li>
+                    </ul>
+                </div>
+                <button class="btn btn-success" @click="saveTeam"
+                    v-if="!isSaveButtonDisabled && !isTeamNameEmpty && !saving">Save</button>
+            </div>
             <div class="col-md-6">
-                <!-- Filter Options -->
+                <h5>Available Players</h5>
                 <div class="filter-options">
-                    <h5>Filter Options</h5>
                     <!-- Position Filter -->
                     <div class="my-2">
                         <label for="positionFilter" class="me-2">Position:</label>
@@ -28,7 +51,6 @@
                 </div>
                 <!-- Available Players -->
                 <div class="available-players">
-                    <h5>Available Players</h5>
                     <ul>
                         <li v-for="player in filteredPlayers" @click="addToTeam(player)" :class="{
                             'disabled':
@@ -43,25 +65,6 @@
                         </li>
                     </ul>
                 </div>
-            </div>
-            <div class="col-md-6">
-                <!-- Selected Team -->
-                <div class="selected-team">
-                    <h5>Selected Team</h5>
-                    <div class="team-name my-2">
-                        <label for="teamName" class="me-2">Team Name:</label>
-                        <input v-model="teamName" type="text" id="teamName" placeholder="Enter your team name">
-                    </div>
-                    <div>
-                        <p>Team Value: £{{ teamValue / 10000000 }}m (target: 50m)</p>
-                    </div>
-                    <ul>
-                        <li v-for="player in selectedTeam" @click="removeFromTeam(player)">{{ player.first_name }} {{
-                            player.surname }} {{ player.team_short_name }} ({{ player.position_short_name }})</li>
-                    </ul>
-                </div>
-                <button class="btn btn-success" @click="saveTeam"
-                    v-if="!isSaveButtonDisabled && !isTeamNameEmpty && !saving">Save</button>
             </div>
         </div>
     </div>
@@ -78,10 +81,18 @@ export default {
             type: Array,
             required: true,
         },
+        selectedPlayers: {
+            type: Array,
+            default: () => [], // Initialize it as an empty array
+        },
+        teamName: {
+            type: String,
+            default: '',
+        },
     },
     data() {
         return {
-            selectedTeam: [],
+            selectedTeam: this.selectedPlayers,
             positionFilter: '',
             teamFilter: '',
             goalkeeperSelected: false,
@@ -90,11 +101,15 @@ export default {
             forwardsSelected: 0,
             teamValue: 0,
             isSaveButtonDisabled: true,
-            teamName: '',
             teamPlayerCounts: {},
             saving: false,
             successMessage: '',
         };
+    },
+    created() {
+        console.log(this.teamName);
+        this.calculateInitialPlayerCounts();
+        this.calculateInitialTeamValue();
     },
     computed: {
         filteredPlayers() {
@@ -127,6 +142,35 @@ export default {
         },
     },
     methods: {
+        calculateInitialPlayerCounts() {
+            // Initialize counts
+            this.goalkeeperSelected = false;
+            this.defendersSelected = 0;
+            this.midfieldersSelected = 0;
+            this.forwardsSelected = 0;
+
+            // Loop through the selectedPlayers and update counts
+            this.selectedPlayers.forEach(player => {
+                if (player.position === 1) {
+                    this.goalkeeperSelected = true;
+                } else if (player.position === 2) {
+                    this.defendersSelected++;
+                } else if (player.position === 3) {
+                    this.midfieldersSelected++;
+                } else if (player.position === 4) {
+                    this.forwardsSelected++;
+                }
+            });
+        },
+        calculateInitialTeamValue() {
+            // Initialize teamValue to 0
+            this.teamValue = 0;
+
+            // Calculate the team value based on selectedPlayers' prices
+            this.selectedPlayers.forEach(player => {
+                this.teamValue += player.price_pence;
+            });
+        },
         getPositionShortName(position) {
             switch (position) {
                 case 1: return 'GK';
@@ -279,21 +323,11 @@ export default {
     color: gray;
 }
 
-.selected-team.fixed {
+.fixed-column {
     position: sticky;
     top: 0;
     height: 100vh;
-    /* Adjust the height as needed */
-    overflow-y: auto;
-    /* Enable vertical scrolling for the "Selected Team" column */
-    background-color: #f0f0f0;
-    /* Add a background color if needed */
-}
-
-.scrollable-content {
-    /* Add margin-left to adjust for the "Selected Team" column width */
-    margin-left: 200px;
-    /* Adjust the width as needed */
+    overflow: auto;
 }
 </style>
   

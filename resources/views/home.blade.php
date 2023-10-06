@@ -23,10 +23,9 @@
                                 {{ $player->first_name }} {{ $player->surname }} {{ $player->team_short_name }} ({{  $player->position_short_name }})
                             </div>
                         @endforeach
-                        <a href="#" class="btn btn-primary">Edit Team</a>
-
-                       <a href="{{ route('scores')  }}" class="btn btn-primary">See Team Scores</a>
-                    @else
+                        <a href="{{ route('team.edit', $team) }}" class="btn btn-primary mt-3">Edit Team (really?)</a>
+                   	 <a href="{{ route('scores')  }}" class="btn btn-primary">See Team Scores</a>
+		    @else
                         <div class="alert alert-warning" role="alert">
                             You do not have a team yet.
                         </div>
