@@ -10,11 +10,15 @@
 @import 'bootstrap/scss/bootstrap';
 
 /* Font for the logo */
-.navbar-brand {
-    font-family: 'bowlby-one-sc', sans-serif;
+.muppet-font {
+    font-family: 'Ultra', sans-serif;
 }
 
 /* Font for the rest of the webpage */
 body {
     font-family: 'advent-pro', sans-serif;
+    background-image: url('../../public/img/muppet-background.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
 }

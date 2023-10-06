@@ -10,9 +10,9 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Fonts -->
-    <link rel="dns-prefetch" href="//fonts.bunny.net">
-    <link href="https://fonts.bunny.net/css?family=advent-pro:100" rel="stylesheet">
-    <link href="https://fonts.bunny.net/css?family=bowlby-one-sc:400" rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Ultra&display=swap" rel="stylesheet">
 
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
@@ -22,7 +22,7 @@
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
                 <img src="{{ asset('img/muppet-league-logo.png') }}" alt="Logo" width="50" height="50" class="d-inline-block align-text-top">
-                <a class="navbar-brand" href="{{ url('/') }}">
+                <a class="navbar-brand muppet-font" href="{{ url('/') }}">
                     {{ strtoupper(config('app.name', 'Laravel')) }}
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
@@ -38,7 +38,7 @@
                         @auth
                             @if (auth()->user())
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('home') }}">Dashboard</a>
+                                    <a class="nav-link" href="{{ route('home') }}">My Muppets</a>
                                 </li>
                             @endif
                         @endauth
