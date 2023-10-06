@@ -3,10 +3,10 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-8">
+        <div class="col-md-10">
             <div class="card">
-                <div class="card-header">
-                    <h5>Create Team</h5>
+                <div class="card-header sticky-top bg-white">
+                    <h5 class="mt-2">Create Team</h5>
                     <ul>
                         <li>Minimum spend: £50m</li>
                         <li>No more than 2 players from the same team</li>
@@ -22,10 +22,6 @@
                         :premier-league-teams="{{ json_encode($premierLeagueTeams) }}">
                     </team-selector>
                 </div>
-                <form method="post" action="{{ route('team.store') }}">
-                    @csrf
-                    <button type="submit">Save Team</button>
-                </form>
             </div>
         </div>
     </div>

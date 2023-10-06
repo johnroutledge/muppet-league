@@ -1,10 +1,9 @@
 <?php
 
 use App\Http\Controllers\GetGameweekController;
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\User\TeamController;
 use App\Http\Controllers\HomeController;
-
+use App\Http\Controllers\User\TeamController;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,7 +26,6 @@ Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::get('/scoring', [HomeController::class, 'scoring'])->name('scoring');
 
 Route::middleware(['auth'])->group(function () {
-
     Route::resource('/user/team', TeamController::class);
 
     Route::get('/gameweek/{gameweekId}', GetGameweekController::class);
