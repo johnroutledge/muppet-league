@@ -10,7 +10,7 @@ class Player extends Model
 {
     use HasFactory;
 
-    public $guarded = [];	
+    public $guarded = [];
 
     protected $appends = [
         'position_short_name',
@@ -49,5 +49,10 @@ class Player extends Model
     {
         return $this->premierLeagueTeam->short_name;
     }
-    
+
+    public function gameweeks()
+    {
+        return $this->hasMany(GameweekPlayer::class);
+    }
+
 }

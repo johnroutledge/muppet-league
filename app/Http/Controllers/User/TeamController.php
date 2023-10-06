@@ -14,7 +14,7 @@ class TeamController extends Controller
 {
     public function index()
     {
-        //
+
     }
 
     public function create()
@@ -41,7 +41,7 @@ class TeamController extends Controller
         // Save the team record
         $team->save();
         Log::info('Team saved successfully');
-       
+
         // Attach selected players to the team in the player_team pivot table
         $selectedPlayers = $request->input('selectedPlayers');
 
