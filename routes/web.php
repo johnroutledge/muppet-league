@@ -29,4 +29,5 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('/user/team', TeamController::class);
 
     Route::get('/gameweek/{gameweekId}', GetGameweekController::class);
+    Route::get('/scores/{gameweek?}', [HomeController::class, 'scores'])->name('scores');
 });

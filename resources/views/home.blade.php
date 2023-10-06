@@ -24,6 +24,8 @@
                             </div>
                         @endforeach
                         <a href="#" class="btn btn-primary">Edit Team</a>
+
+                       <a href="{{ route('scores')  }}" class="btn btn-primary">See Team Scores</a>
                     @else
                         <div class="alert alert-warning" role="alert">
                             You do not have a team yet.

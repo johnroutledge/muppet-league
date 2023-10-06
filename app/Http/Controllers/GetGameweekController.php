@@ -9,8 +9,8 @@ class GetGameweekController extends Controller
     public function __invoke(int $gameweekId)
     {
         $team = auth()->user()
-            ->team->with(['players.gameweeks' => function ($query) {
-                $query->where('gameweek_id', 1);
+            ->team->with(['players.gameweeks' => function ($query) use ($gameweekId) {
+                $query->where('gameweek_id', $gameweekId);
             }])
             ->first();
 

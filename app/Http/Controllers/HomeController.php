@@ -32,4 +32,41 @@ class HomeController extends Controller
     {
         return view('scoring');
     }
+
+    public function scores($gameweekId = null)
+    {
+        $team = auth()->user()
+            ->team->with(['players.gameweeks' => function ($query) use ($gameweekId) {
+                if ($gameweekId) {
+                    $query->where('gameweek_id', $gameweekId);
+                }
+            }])
+            ->first();
+
+        if (! $team) {
+            abort(404, 'You have not created a team yet');
+        }
+
+        $gameweekData =  $team->players->map(function ($player) {
+            $gameweeks = $player->gameweeks;
+
+            return [
+                'player_id' => $player->id,
+                'first_name' => $player->first_name,
+                'surname' => $player->surname,
+                'score' => $gameweeks->sum('score'),
+                'minutes' => $gameweeks->sum('minutes'),
+                'goals_scored' => $gameweeks->sum('goals_scored'),
+                'assists' => $gameweeks->sum('assists'),
+                'clean_sheets' => $gameweeks->sum('clean_sheets'),
+                'goals_conceded' => $gameweeks->sum('goals_conceded'),
+                'own_goals' => $gameweeks->sum('own_goals'),
+                'penalties_saved' => $gameweeks->sum('penalties_saved'),
+                'penalties_missed' => $gameweeks->sum('penalties_missed'),
+                'yellow_cards' => $gameweeks->sum('yellow_cards'),
+                'red_cards' => $gameweeks->sum('red_cards'),
+            ];
+        });
+        return view('scores', compact('team', 'gameweekData', 'gameweekId'));
+    }
 }
