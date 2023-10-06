@@ -24,6 +24,7 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
+Route::get('/scoring', [HomeController::class, 'scoring'])->name('scoring');
 
 Route::middleware(['auth'])->group(function () {
 

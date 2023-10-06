@@ -27,4 +27,9 @@ class HomeController extends Controller
         $team = Team::where('user_id', auth()->user()->id)->first();
         return view('home', compact('team'));
     }
+
+    public function scoring()
+    {
+        return view('scoring');
+    }
 }
