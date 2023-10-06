@@ -3,11 +3,11 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use App\Models\Player;
 use App\Models\PlayerTeam;
 use App\Models\PremierLeagueTeam;
 use App\Models\Team;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
 class TeamController extends Controller
@@ -77,7 +77,20 @@ class TeamController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $players = Player::join('premier_league_teams', 'players.premier_league_team_id', '=', 'premier_league_teams.id')
+            ->orderBy('premier_league_teams.name')
+            ->orderBy('players.position')
+            ->select('players.*')
+            ->get();
+
+        $selectedPlayerIds = PlayerTeam::where('team_id', $id)->pluck('player_id')->toArray();
+        $selectedPlayers = Player::whereIn('id', $selectedPlayerIds)->get();
+
+        $teamName = Team::where('id', $id)->pluck('name')->first();
+
+        $premierLeagueTeams = PremierLeagueTeam::orderBy('name')->get();
+
+        return view('user.team.edit', compact('players', 'premierLeagueTeams', 'selectedPlayers', 'teamName'));
     }
 
     /**
